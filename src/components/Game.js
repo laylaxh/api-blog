@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { randomNumberGenerator } from '../store/util';
 import RandomNumbersPanel from './RandomNumbersPanel';
@@ -7,6 +8,7 @@ import RandomNumbersPanel from './RandomNumbersPanel';
 class Game extends React.Component {
   static propTypes = {
     numberCount: PropTypes.number.isRequired,
+    selectedNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   };
   constructor(props) {
     super();
@@ -17,14 +19,30 @@ class Game extends React.Component {
       .slice(0, props.numberCount - 2)
       .reduce((acc, curr) => acc + curr);
   }
+  gameStatus = () => {
+    const sumSelected = this.props.selectedNumbers.reduce((acc, curr) => acc + this.randomNumbers[curr], 0);
+    if (sumSelected < this.target) {
+      return 'playing';
+    }
+    if (sumSelected === this.target) {
+      return 'won';
+    }
+    if (sumSelected > this.target) {
+      return 'lost';
+    }
+  };
   render() {
+    const gameStatus = this.gameStatus();
     return (
       <div id="game">
         <div id="target">{this.target}</div>
         <RandomNumbersPanel randomNumbers={this.randomNumbers} />
+        {gameStatus}
       </div>
     );
   }
 }
 
-export default Game;
+export default connect((state) => ({
+  selectedNumbers: state.selectedNumbers
+}))(Game);
