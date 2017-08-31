@@ -7,12 +7,15 @@ class NumberTile extends React.Component {
     number: PropTypes.number.isRequired,
     selected: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+    canPlay: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     selected: false,
   };
   handleClick = () => {
-    this.props.onClick(this.props.id);
+    if (!this.props.selected && this.props.canBeClicked) {
+      this.props.onClick(this.props.id);
+    }
   };
   render() {
     return (

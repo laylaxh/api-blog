@@ -1,13 +1,8 @@
-/*
-State:
-  // Sum of numbers you Selected
-  // Win/Lose
-*/
-
 import * as Redux from 'redux';
 
 const initialState = {
   selectedNumbers: [],
+  remainingSeconds: 10,
 };
 
 const actionFunctions = {
@@ -15,6 +10,12 @@ const actionFunctions = {
     return {
       ...state,
       selectedNumbers: [...state.selectedNumbers, payload.index],
+    };
+  },
+  DECREMENT_TIME: (state) => {
+    return {
+      ...state,
+      remainingSeconds: state.remainingSeconds - 1,
     };
   },
 };
