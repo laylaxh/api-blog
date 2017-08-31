@@ -19,7 +19,7 @@ class Game extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div id="game">
         <div id="target">{this.target}</div>
         <RandomNumbersPanel randomNumbers={this.randomNumbers} />
       </div>

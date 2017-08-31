@@ -5,7 +5,7 @@ const RandomNumbersPanel = (props) => {
   return (
     <div id="random-numbers">
       {props.randomNumbers.map((number, index) => (
-        <div key={index}>{number}</div>
+        <div className="number" key={index}>{number}</div>
       ))}
     </div>
   );
