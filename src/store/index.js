@@ -10,34 +10,32 @@ const initialState = {
   selectedNumbers: []
 };
 
+const actionFunctions = {
+  'SELECT_NUMBER': (state, payload) => {
+    return {
+      ...state,
+      selectedNumbers: [...state.selectedNumbers, payload.index],
+    };
+  },
+};
+
 const reducer = (state, action) => {
-  // console.log('Calling Reducer', action);
-  // if (action.type === 'TEST1') {
-  //   // state.counter = 1;
-  //   return {
-  //     ...state,
-  //     counter: 1,
-  //   };
-  // }
-  // if (action.type === 'TEST2') {
-  //   // state.counter = state.counter + 1;
-  //   return {
-  //     ...state,
-  //     counter: state.counter + 1,
-  //   };
-  // }
-  return state;
+  const actionFunction = actionFunctions[action.type];
+  if (!actionFunction) {
+    return state;
+  }
+  return actionFunction(state, action.payload);
 };
 
 const store = Redux.createStore(reducer, initialState);
-// console.log(store);
+// // console.log(store);
 // console.log('getState', store.getState());
-//
-// store.dispatch({ type: 'TEST1' });
+// //
+// store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 3 } });
 // console.log('getState', store.getState());
-// store.dispatch({ type: 'TEST2' });
+// store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 0 } });
 // console.log('getState', store.getState());
-// store.dispatch({ type: 'TEST2' });
+// store.dispatch({ type: 'SELECT_NUMBER', payload: { index: 6 } });
 // console.log('getState', store.getState());
 
 export default store;

@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 
 class NumberTile extends React.Component {
   static propTypes = {
+    id: PropTypes.number.isRequired,
     number: PropTypes.number.isRequired,
     selected: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
   };
   static defaultProps = {
     selected: false,
   };
   handleClick = () => {
-    console.log(this.props.number);
+    this.props.onClick(this.props.id);
   };
   render() {
     return (
