@@ -6,7 +6,10 @@ import { randomNumberGenerator } from '../store/util';
 import RandomNumbersPanel from './RandomNumbersPanel';
 import { decrementTime } from '../store/actions';
 
-class Game extends React.Component {
+import Perf from 'react-addons-perf';
+window.Perf = Perf;
+
+class Game extends React.PureComponent {
   static propTypes = {
     numberCount: PropTypes.number.isRequired,
     selectedNumbers: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -25,10 +28,13 @@ class Game extends React.Component {
       .reduce((acc, curr) => acc + curr);
   }
   componentDidMount() {
+    Perf.start();
     this.intervalId = setInterval(() => {
       this.props.decrementTime();
       if (this.props.remainingSeconds === 0) {
         clearInterval(this.intervalId);
+        Perf.stop();
+        Perf.printWasted();
       }
     }, 1000);
   }
@@ -65,6 +71,9 @@ class Game extends React.Component {
     }
     return gameStatus === 'won' ? 'green' : 'red';
   }
+  canPlay = () => {
+    return this.gameStatus() === 'playing';
+  };
   render() {
     const gameStatus = this.gameStatus();
     return (
@@ -79,7 +88,7 @@ class Game extends React.Component {
           {this.target}
         </div>
         <RandomNumbersPanel
-          canPlay={gameStatus === 'playing'}
+          canPlay={this.canPlay}
           randomNumbers={this.randomNumbers}
         />
         {gameStatus !== 'playing' && (
