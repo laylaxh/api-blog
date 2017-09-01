@@ -6,7 +6,6 @@ import ArticleItem from './ArticleItem';
 class ArticleList extends React.PureComponent {
   static propTypes = {
     articles: PropTypes.object.isRequired,
-    // store: PropTypes.object.isRequired,
   };
   render() {
     return (
@@ -14,7 +13,6 @@ class ArticleList extends React.PureComponent {
         {Object.values(this.props.articles).map((article) => (
           <ArticleItem
             key={article.id}
-            // store={this.props.store}
             article={article}
           />
         ))}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import connect from './connect';
 
 class ArticleItem extends React.PureComponent {
   static propTypes = {
@@ -10,16 +11,12 @@ class ArticleItem extends React.PureComponent {
       authorId: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
     }).isRequired,
+    lookupAuthor: PropTypes.func.isRequired,
   };
-
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-  };
-
 
   render() {
     const { article } = this.props;
-    const author = this.context.store.lookupAuthor(article.authorId);
+    const author = this.props.lookupAuthor(article.authorId);
     return (
       <div>
         <div>{article.title}</div>
@@ -35,4 +32,6 @@ class ArticleItem extends React.PureComponent {
   }
 }
 
-export default ArticleItem;
+export default connect({
+  actionsList: ['lookupAuthor'],
+})(ArticleItem);
