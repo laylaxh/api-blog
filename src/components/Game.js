@@ -6,8 +6,7 @@ import { randomNumberGenerator } from '../store/util';
 import RandomNumbersPanel from './RandomNumbersPanel';
 import { decrementTime } from '../store/actions';
 
-import Perf from 'react-addons-perf';
-window.Perf = Perf;
+import shuffle from 'lodash.shuffle';
 
 class Game extends React.PureComponent {
   static propTypes = {
@@ -26,15 +25,13 @@ class Game extends React.PureComponent {
     this.target = this.randomNumbers
       .slice(0, props.numberCount - 2)
       .reduce((acc, curr) => acc + curr);
+    this.randomNumbers = shuffle(this.randomNumbers);
   }
   componentDidMount() {
-    Perf.start();
     this.intervalId = setInterval(() => {
       this.props.decrementTime();
       if (this.props.remainingSeconds === 0) {
         clearInterval(this.intervalId);
-        Perf.stop();
-        Perf.printWasted();
       }
     }, 1000);
   }

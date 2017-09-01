@@ -17,10 +17,6 @@ class NumberTile extends React.PureComponent {
       this.props.onClick(this.props.id);
     }
   };
-  componentWillUpdate(nextProps, nextState) {
-    console.log(this.props, nextProps);
-    console.log(this.state, nextState);
-  }
   render() {
     return (
       <div
