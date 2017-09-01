@@ -1,20 +1,12 @@
 const path = require('path');
-const webpack = require('webpack');
 
 const config = {
-  devtool: 'eval-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? false : 'eval-source-map',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
-    }),
-  ],
   module: {
     rules: [
       {
