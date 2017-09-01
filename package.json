@@ -5,6 +5,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
     "lodash.shuffle": "^4.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -18,6 +20,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "babel-watch": "^2.0.7",
     "css-loader": "^0.28.7",
     "eslint": "^4.5.0",
     "eslint-plugin-react": "^7.3.0",
@@ -28,6 +31,7 @@
     "webpack": "^3.5.5"
   },
   "scripts": {
+    "babel": "babel-watch --inspect src/server/server",
     "webpack": "webpack -w",
     "build-webpack": "NODE_ENV=production webpack -p"
   },
