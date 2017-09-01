@@ -9,6 +9,8 @@ class ArticleList extends React.PureComponent {
   };
   render() {
     return (
+       // gives you values in that object as an array - the array of articles
+       // always need that key when we map
       <div>
         {Object.values(this.props.articles).map((article) => (
           <ArticleItem
